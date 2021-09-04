@@ -1,0 +1,4 @@
+node_modules
+dist
+config/server.js
+.DS_Store
