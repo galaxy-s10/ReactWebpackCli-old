@@ -1,4 +1,4 @@
-import code from "../README.md";
-import "highlight.js/styles/github.css";
+import code from '../README.md';
+import 'highlight.js/styles/github.css';
 
 document.body.innerHTML = code;

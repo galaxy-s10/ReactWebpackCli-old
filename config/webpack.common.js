@@ -1,17 +1,18 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { DefinePlugin } = require("webpack");
-const copyWebpackPlugin = require("copy-webpack-plugin");
-const TerserPlugin = require("terser-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-const WebpackBar = require("webpackbar");
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { DefinePlugin } = require('webpack');
+const copyWebpackPlugin = require('copy-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const WebpackBar = require('webpackbar');
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+// const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
-const { merge } = require("webpack-merge");
+const { merge } = require('webpack-merge');
 
-const prodConfig = require("./webpack.prod");
-const devConfig = require("./webpack.dev");
+const prodConfig = require('./webpack.prod');
+const devConfig = require('./webpack.dev');
 
 const commonConfig = function (isProduction) {
   return {
@@ -19,11 +20,11 @@ const commonConfig = function (isProduction) {
     // entry: './src/main.js',
     entry: {
       main: {
-        import: "./src/main.js",
+        import: './src/main.js',
         // filename: 'output-[name]-bundle.js'
       },
       md: {
-        import: "./src/md.js",
+        import: './src/md.js',
       },
       // main: [
       //   './src/main.js'
@@ -34,16 +35,16 @@ const commonConfig = function (isProduction) {
       // },
     },
     output: {
-      filename: "js/[name]-bundle.js", //入口文件打包生成后的文件的文件名
+      filename: 'js/[name]-bundle.js', // 入口文件打包生成后的文件的文件名
       /**
        * 入口文件中，符合条件的代码，被抽离出来后生成的文件的文件名
        * 如：动态(即异步)导入，默认不管大小，是一定会被单独抽离出来的。
        * 如果一个模块既被同步引了，又被异步引入了，不管顺序（即不管是先同步引入再异步引入，还是先异步引入在同步引入），
        * 这个模块会打包进bundle.js，而不会单独抽离出来。
        */
-      chunkFilename: "js/[name]-[hash:6]-bundle-chunk.js",
-      path: path.resolve(__dirname, "../dist"),
-      assetModuleFilename: "assets/[name]-[hash:6].[ext]", //静态资源生成目录（不管什么资源默认都统一生成到这里,除非单独设置了generator）
+      chunkFilename: 'js/[name]-[hash:6]-bundle-chunk.js',
+      path: path.resolve(__dirname, '../dist'),
+      assetModuleFilename: 'assets/[name]-[hash:6].[ext]', // 静态资源生成目录（不管什么资源默认都统一生成到这里,除非单独设置了generator）
       /**
        * output的publicPath建议(或者绝大部分情况下必须)与devServer的publicPath一致。
        * 不管开发模式还是生产模式，output.publicPath都会生效，如果不设置publicPath，
@@ -60,18 +61,18 @@ const commonConfig = function (isProduction) {
        * 访问http://localhost:8080/logManage/logList，引入的资源就是：http://localhost:8080/js/bundle.js，就不会报错。
        * 此外，output.publicPath还可设置cdn地址。
        */
-      publicPath: "/",
+      publicPath: '/',
     },
     resolve: {
-      //解析路径
-      extensions: [".wasm", ".mjs", ".js", ".json", ".jsx", ".ts", ".vue"], //解析扩展名
+      // 解析路径
+      extensions: ['.wasm', '.mjs', '.js', '.json', '.jsx', '.ts'], // 解析扩展名
       alias: {
-        "@": path.resolve(__dirname, "../src"), //设置路径别名
+        '@': path.resolve(__dirname, '../src'), // 设置路径别名
       },
     },
     resolveLoader: {
       // 用于解析webpack的loader
-      modules: ["node_modules", "webpack_loaders"],
+      modules: ['node_modules', 'webpack_loaders'],
     },
     optimization: {
       /**
@@ -80,7 +81,7 @@ const commonConfig = function (isProduction) {
        * 比如：splitChunks.chunks:'async'等等，即会将异步代码抽离！
        */
       splitChunks: {
-        //对入口文件进行代码分离
+        // 对入口文件进行代码分离
         // chunks: 'all',  //async,initial,all
         // minSize: 20 * 1024, //生成 chunk 的最小体积。默认：20000（19.5kb）
         /**
@@ -118,23 +119,23 @@ const commonConfig = function (isProduction) {
          * 即vendor里没有设置chunks，vendor就会继承splitChunks的chunks，vendor设置了filename，会覆盖splitChunks的filename
          */
         cacheGroups: {
-          //cacheGroups里的优先级默认比外面的高
+          // cacheGroups里的优先级默认比外面的高
           // defaultVendors:false,  //禁用默认webpack默认设置的defaultVendors缓存组
           // default:false, //禁用默认webpack默认设置的default缓存组
           defaultVendors: {
-            //重写默认的defaultVendors
-            chunks: "initial",
+            // 重写默认的defaultVendors
+            chunks: 'initial',
             // minSize: 50 * 1024,
             // maxSize: 50 * 1024,
             test: /[\\/]node_modules[\\/]/,
-            filename: "js/[name]-defaultVendors.js",
+            filename: 'js/[name]-defaultVendors.js',
             priority: -10,
           },
           default: {
-            //重写默认的default
-            chunks: "all",
-            filename: "js/[name]-default.js",
-            minChunks: 2, //至少被minChunks个入口文件引入了minChunks次。
+            // 重写默认的default
+            chunks: 'all',
+            filename: 'js/[name]-default.js',
+            minChunks: 2, // 至少被minChunks个入口文件引入了minChunks次。
             priority: -20,
           },
           // 这里动态代码会匹配到这里，会使用[id]-test.js作为文件名
@@ -154,20 +155,24 @@ const commonConfig = function (isProduction) {
           test: /\.md?$/,
           exclude: /node_modules/,
           use: {
-            loader: "hss-parse-md",
+            loader: 'hss-parse-md',
           },
         },
         {
           test: /\.jsx?$/,
           exclude: /node_modules/,
-          use: {
-            loader: "babel-loader",
-          },
+          use: [
+            {
+              loader: 'babel-loader',
+              options: {
+                plugins: [
+                  !isProduction && require.resolve('react-refresh/babel'),
+                ].filter(Boolean),
+              },
+            },
+            'eslint-loader',
+          ],
         },
-        // {
-        //   test: /\.vue$/,
-        //   use: [{ loader: "vue-loader" }],
-        // },
         {
           test: /\.css$/,
           use: [
@@ -181,12 +186,12 @@ const commonConfig = function (isProduction) {
                      * 即默认打包的css文件是webpackOptions.output的publicPath，
                      * 但在new MiniCssExtractPlugin()时候，设置了打包生成的文件在dist下面的css目录里，
                      */
-                    publicPath: "../",
+                    publicPath: '../',
                   },
                 }
-              : { loader: "style-loader" }, // Do not use style-loader and mini-css-extract-plugin together.
+              : { loader: 'style-loader' }, // Do not use style-loader and mini-css-extract-plugin together.
             {
-              loader: "css-loader",
+              loader: 'css-loader',
               options: {
                 importLoaders: 1, // 在css文件里面@import了其他资源，就回到上一个loader，在上一个loader那里重新解析@import里的资源
               },
@@ -201,7 +206,7 @@ const commonConfig = function (isProduction) {
             //     }
             //   }
             // },
-            "postcss-loader", // 默认会自动找postcss.config.js
+            'postcss-loader', // 默认会自动找postcss.config.js
           ],
           sideEffects: true, // 告诉webpack是有副作用的，不对css进行删除
         },
@@ -218,12 +223,12 @@ const commonConfig = function (isProduction) {
                      * 即默认打包的css文件是webpackOptions.output的publicPath，
                      * 但在new MiniCssExtractPlugin()时候，设置了打包生成的文件在dist下面的css目录里，
                      */
-                    publicPath: "../",
+                    publicPath: '../',
                   },
                 }
-              : { loader: "style-loader" },
+              : { loader: 'style-loader' },
             {
-              loader: "css-loader",
+              loader: 'css-loader',
               options: {
                 importLoaders: 2, // 在less文件里面@import了其他资源，就回到上两个loader，在上两个loader那里开始重新解析@import里的资源
               },
@@ -238,8 +243,8 @@ const commonConfig = function (isProduction) {
             //     }
             //   }
             // },
-            "postcss-loader", // 默认会自动找postcss.config.js
-            { loader: "less-loader" },
+            'postcss-loader', // 默认会自动找postcss.config.js
+            { loader: 'less-loader' },
           ],
         },
         // {
@@ -262,9 +267,9 @@ const commonConfig = function (isProduction) {
           //     filename:'img/[name]-[hash:6].[ext]'
           // }
           // type: 'asset/inline', // 全部都使用url-loader
-          type: "asset",
+          type: 'asset',
           generator: {
-            filename: "img/[name]-[hash:6][ext]",
+            filename: 'img/[name]-[hash:6][ext]',
           },
           parser: {
             dataUrlCondition: {
@@ -275,9 +280,9 @@ const commonConfig = function (isProduction) {
         {
           // test: /\.(svg|eot|ttf|woff2?)\??.*$/,
           test: /\.(svg|eot|ttf|woff2?)$/,
-          type: "asset/resource",
+          type: 'asset/resource',
           generator: {
-            filename: "font/[name]-[hash:6][ext]",
+            filename: 'font/[name]-[hash:6][ext]',
           },
         },
       ],
@@ -291,9 +296,9 @@ const commonConfig = function (isProduction) {
       // }),
       new HtmlWebpackPlugin({
         // 自动生成index.html文件(并引入打包的js)
-        filename: "index.html",
-        title: "ReactWebpackCli",
-        template: "./public/index.html",
+        filename: 'index.html',
+        title: 'ReactWebpackCli',
+        template: './public/index.html',
         hash: true,
         minify: isProduction
           ? {
@@ -301,9 +306,9 @@ const commonConfig = function (isProduction) {
               keepClosingSlash: true, // 在单标签上保留末尾斜杠
               removeComments: true, // 移除注释
               removeRedundantAttributes: true, // 移除多余的属性（如：input的type默认就是text，如果写了type="text"，就移除它，因为不写它默认也是type="text"）
-              removeScriptTypeAttributes: true, //删除script标签中type="text/javascript"
-              removeStyleLinkTypeAttributes: true, //删除style和link标签中type="text/css"
-              useShortDoctype: true, //使用html5的<!doctype html>替换掉之前的html老版本声明方式<!doctype>
+              removeScriptTypeAttributes: true, // 删除script标签中type="text/javascript"
+              removeStyleLinkTypeAttributes: true, // 删除style和link标签中type="text/css"
+              useShortDoctype: true, // 使用html5的<!doctype html>替换掉之前的html老版本声明方式<!doctype>
               // 上面的都是production模式下默认值。
               removeEmptyAttributes: true, // 移除一些空属性，如空的id,classs,style等等，但不是空的就全删，比如<img alt />中的alt不会删。
 
@@ -311,47 +316,47 @@ const commonConfig = function (isProduction) {
               minifyJS: true, // 使用Terser插件优化
             }
           : false,
-        chunks: ["main"],
+        chunks: ['main'],
       }),
       new HtmlWebpackPlugin({
         // 自动生成index.html文件(并引入打包的js)
-        filename: "md.html",
-        title: "hss-md",
+        filename: 'md.html',
+        title: 'hss-md',
         hash: true,
-        template: "./public/md.html",
+        template: './public/md.html',
         // template: path.resolve(__dirname, '../public/md.html'),
-        chunks: ["md"],
+        chunks: ['md'],
       }),
       new copyWebpackPlugin({
         patterns: [
           {
-            from: "public", //将public里面的文件
+            from: 'public', // 将public里面的文件
             // to: 'assets'    //复制到output.path下的assets，不写默认就是output.path根目录
             globOptions: {
               ignore: [
                 // 复制到output.path时，如果output.paht已经存在重复的文件了，会报错：
                 // ERROR in Conflict: Multiple assets emit different content to the same filename md.html
-                "**/index.html", //忽略from目录下的index.html，它是入口文件
-                "**/md.html", //忽略from目录下的md.html，它是入口文件
+                '**/index.html', // 忽略from目录下的index.html，它是入口文件
+                '**/md.html', // 忽略from目录下的md.html，它是入口文件
               ],
             },
           },
         ],
       }),
       new DefinePlugin({
-        //定义全局变量
-        BASE_URL: "'./'", //public下的index.html里面的icon的路径
-        "process.env": {
-          NODE_ENV: JSON.stringify(process.env.NODE_ENV || "development"),
+        // 定义全局变量
+        BASE_URL: "'./'", // public下的index.html里面的icon的路径
+        'process.env': {
+          NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development'),
         },
       }),
-      // new VueLoaderPlugin(), //解析vue
+      // !isProduction && new ReactRefreshWebpackPlugin(),
       new MiniCssExtractPlugin({
-        //将 CSS 提取到单独的文件中
+        // 将 CSS 提取到单独的文件中
         // Options similar to the same options in webpackOptions.output
         // all options are optional
-        filename: "css/[name]-[hash:6].css",
-        chunkFilename: "css/[id].css",
+        filename: 'css/[name]-[hash:6].css',
+        chunkFilename: 'css/[id].css',
         ignoreOrder: false, // Enable to remove warnings about conflicting order
       }),
     ],
@@ -371,9 +376,9 @@ module.exports = function (env) {
   // 改进：process.env.production = isProduction?true:false,这样的话，process.env.production就要么是字符串"true"，要么是字符串"false"
 
   // 这里要先判断isProduction,判断完再将字符串赋值给process.env.NODE_ENV，就万无一失了
-  process.env.NODE_ENV = isProduction ? "production" : "development";
+  process.env.NODE_ENV = isProduction ? 'production' : 'development';
   const config = isProduction ? prodConfig : devConfig;
-  const mergeConfig = merge(commonConfig(isProduction), config); //根据当前环境，合并配置文件
+  const mergeConfig = merge(commonConfig(isProduction), config); // 根据当前环境，合并配置文件
 
   return mergeConfig;
 };
