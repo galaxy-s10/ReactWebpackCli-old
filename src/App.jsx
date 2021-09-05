@@ -1,19 +1,22 @@
 import React, { memo } from 'react';
 import { renderRoutes } from 'react-router-config';
-import { BrowserRouter, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+import { Button } from 'antd';
 import routes from './router';
+// import Login from './pages/login';
+import Layout from './layout/index';
 
-import Login from './pages/login';
-
-console.log(routes, 99);
 const App = function (props) {
-  console.log(props);
   const { history } = props;
   return (
-    <BrowserRouter>
-      {renderRoutes(routes)}
-      <Login></Login>
-    </BrowserRouter>
+    <div>
+      {/* App组件外层已经在BrowserRouter里面了，这里就不能加BrowserRouter了，
+      否则会导致浏览器url变了，但是页面没有跳转刷新 */}
+      {/* <BrowserRouter> */}
+      {/* {renderRoutes(routes)} */}
+      <Layout></Layout>
+      {/* </BrowserRouter> */}
+    </div>
   );
 };
 export default memo(withRouter(App));

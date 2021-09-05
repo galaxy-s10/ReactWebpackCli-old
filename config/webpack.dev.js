@@ -17,6 +17,7 @@ module.exports = {
      * contentBase默认为package.json文件所在的根目录，即hss_webpack5目录
      * 打开localhost:8080/hss/demo.js,就会访问hss_webpack5目录下的hss目录下的demo.js。
      * 设置contentBase: path.resolve(__dirname, '../hss')后，打开localhost:8080/demo.js,即可访问hss_webpack5目录下的hss目录下的demo.js
+     * 这个目录最好和copyWebpackPlugin插件目录一致
      */
     contentBase: path.resolve(__dirname, '../public'),
     watchContentBase: true, // 监听contenBase目录
