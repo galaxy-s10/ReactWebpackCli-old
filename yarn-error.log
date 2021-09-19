@@ -1,0 +1,106 @@
+Arguments: 
+  /usr/local/bin/node /usr/local/bin/yarn add @esotericsoftware/spine-core
+
+PATH: 
+  /opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin:/opt/homebrew/sbin
+
+Yarn version: 
+  1.22.11
+
+Node version: 
+  14.17.0
+
+Platform: 
+  darwin x64
+
+Trace: 
+  SyntaxError: /Users/huangshuisheng/Library/Caches/Yarn/v6/npm-@esotericsoftware-spine-core-4.0.4-510f39773e6a426c0e9716795c9ea861ffb65eaa-integrity/node_modules/@esotericsoftware/spine-core/.yarn-metadata.json: Unexpected end of JSON input
+      at JSON.parse (<anonymous>)
+      at /usr/local/lib/node_modules/yarn/lib/cli.js:1625:59
+      at Generator.next (<anonymous>)
+      at step (/usr/local/lib/node_modules/yarn/lib/cli.js:310:30)
+      at /usr/local/lib/node_modules/yarn/lib/cli.js:321:13
+
+npm manifest: 
+  {
+    "name": "ReactWebpackCli",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "dev": "webpack serve --config ./config/webpack.common.js --env development",
+      "build": "webpack --config ./config/webpack.common.js --env production",
+      "build1": "webpack --config ./config/webpack.common.js --env production --profile --json=stats.json",
+      "lint": "eslint --config ./.eslintrc.js . --ext .js,.jsx,.ts,.tsx",
+      "lint-fix": "eslint --config ./.eslintrc.js --fix . --ext .js,.jsx,.ts,.tsx"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+      "@babel/core": "^7.14.0",
+      "@babel/preset-react": "^7.14.5",
+      "@pmmmwh/react-refresh-webpack-plugin": "^0.4.3",
+      "autoprefixer": "^10.2.5",
+      "babel-loader": "^8.2.2",
+      "babel-plugin-import": "^1.13.3",
+      "clean-webpack-plugin": "^3.0.0",
+      "compression-webpack-plugin": "^7.1.2",
+      "copy-webpack-plugin": "^8.1.0",
+      "css-loader": "^5.2.0",
+      "css-minimizer-webpack-plugin": "^3.0.0",
+      "eslint": "^7.32.0",
+      "eslint-config-airbnb-base": "^14.2.1",
+      "eslint-config-prettier": "^8.3.0",
+      "eslint-loader": "^4.0.2",
+      "eslint-plugin-import": "^2.24.2",
+      "eslint-plugin-prettier": "^4.0.0",
+      "eslint-plugin-react": "^7.25.1",
+      "file-loader": "^6.2.0",
+      "highlight.js": "^10.7.2",
+      "html-webpack-externals-plugin": "^3.8.0",
+      "html-webpack-plugin": "^5.3.1",
+      "html-webpack-tags-plugin": "^3.0.1",
+      "less": "^4.1.1",
+      "less-loader": "^8.0.0",
+      "marked": "^3.0.2",
+      "mini-css-extract-plugin": "^1.6.0",
+      "postcss-loader": "^5.3.0",
+      "postcss-preset-env": "^6.7.0",
+      "prettier": "^2.3.2",
+      "purgecss-webpack-plugin": "^4.0.3",
+      "react-refresh": "^0.10.0",
+      "style-loader": "^2.0.0",
+      "url-loader": "^4.1.1",
+      "webpack": "^5.28.0",
+      "webpack-bundle-analyzer": "^4.4.1",
+      "webpack-cli": "^4.6.0",
+      "webpack-dev-server": "^3.11.2",
+      "webpackbar": "^5.0.0-3"
+    },
+    "dependencies": {
+      "@ant-design/icons": "^4.6.4",
+      "@babel/preset-env": "^7.14.2",
+      "antd": "^4.16.13",
+      "antd-mobile": "^2.3.4",
+      "axios": "^0.21.1",
+      "core-js": "^3.17.2",
+      "node-ssh": "^11.1.1",
+      "nprogress": "^0.2.0",
+      "react": "^17.0.2",
+      "react-dom": "^17.0.2",
+      "react-redux": "^7.2.4",
+      "react-router-config": "^5.1.1",
+      "react-router-dom": "^5.3.0",
+      "redux": "^4.1.1",
+      "styled-components": "^5.3.1",
+      "terser": "^5.7.0",
+      "webpack-merge": "^5.7.3"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
