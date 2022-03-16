@@ -1,18 +1,1 @@
-# 简介
-
-基于webpack5 + react 搭建脚手架环境
-
-# 运行
-
-默认运行在 `localhost:8080` 端口
-
-```bash
-npm run dev
-```
-
-# 部署
-
-```bash
-npm run build
-```
-
+该项目已不再更新，请移至：https://github.com/galaxy-s10/react-webpack-template
